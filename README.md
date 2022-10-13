@@ -5,12 +5,12 @@ A little exercise to build a web application following an agile development proc
 
 ## Product vision statement
 
-See instructions. Delete this line and place the Product Vision Statement here.
+To allow people to better manage their daily tasks.
 
 ## User stories
 
-See instructions. Delete this line and place a link to the user stories here.
+[Link to User Stories](https://github.com/software-students-fall2022/web-app-exercise-team-14-1/issues)
 
 ## Task boards
 
-See instructions. Delete this line and place a link to the task boards here.
+[Link to All Task Boards](https://github.com/software-students-fall2022/web-app-exercise-team-14-1/projects?query=is%3Aopen)
