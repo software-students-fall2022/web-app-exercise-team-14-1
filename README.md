@@ -5,7 +5,7 @@ A little exercise to build a web application following an agile development proc
 
 ## Product vision statement
 
-To allow people to better manage their daily tasks
+To allow people to better manage their daily tasks.
 
 ## User stories
 
