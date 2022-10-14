@@ -17,7 +17,7 @@ def login():
     if (request.args):
         # add valid username and login checking here
         # current only has a placeholder
-        if (bool(request.args["username"]) and bool(request.args["password"])):
+        if bool(request.args["username"]) and bool(request.args["password"]):
             userInput = request.args["username"]
             passwordInput = request.args["password"]
             if (userInput == "demo" and passwordInput == "123"):
@@ -36,26 +36,18 @@ def register():
     """
     Route for the register page
     """
-    if (request.args):
-        # add valid username and login checking here
-        # current only has a placeholder
-        if (bool(request.args["username"]) and bool(request.args["password"]) and bool(request.args["match"])):
-            userInput = request.args["username"]
-            passwordInput = request.args["password"]
-            if (bool[request.args["username"]]): # PLACEHOLDER - Check that the username hasnt been used
-                if (request.args["password"] == request.args["match"]):
-                    return(redirect(url_for("homepage")))
-                else:
-                    flash('Password must match.')
-                    return(redirect(url_for("register")))
-            else:
-                flash('Username has been taken.')
-                return(redirect(url_for("register")))
+    if request.method == 'POST':
+        u = request.form['username']
+        p = request.form['password']
+        m = request.form['match']
+        if not u or not p or not m:
+            flash('Please fill all fields.')
+        elif p != m:
+            flash('Password does not match.')
         else:
-            flash('Please enter all fields.')
-            return(redirect(url_for("register")))
-    else:
-        return render_template("register.html")
+            return redirect(url_for('login'))
+    return render_template("register.html")
+
 
 @app.route('/homepage')
 def homepage():
