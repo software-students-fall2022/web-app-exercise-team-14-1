@@ -1,0 +1,55 @@
+.topnav {
+    border-width:1px 0;
+    list-style:none;
+    text-align:center;
+    overflow: hidden;
+    background-color: #333;
+    margin: 0;
+    padding: 0;
+    /*
+    If we want to move navbar to the bottom
+    bottom: 0;
+    position: fixed;
+    width:100%;
+    */
+}
+
+.topnav li {
+    display:inline;
+    margin: 0;
+    padding: 0;
+}
+
+.topnav a {
+    display:inline-block;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+    width: 10%;
+}
+
+.topnav .logout {
+    display:inline-block;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+    width: 100%;
+}
+
+.topnav-right {
+    float: right;
+    margin: 0;
+    padding: 0;
+    width: 10%;
+}
+
+.topnav a:hover {
+    background-color: #000;
+}
+
+body {
+   margin: 0;
+   padding: 0;
+}
