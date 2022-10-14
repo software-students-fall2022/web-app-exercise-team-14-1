@@ -2,7 +2,27 @@
 <html>
     <head>
         <title>Register</title>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class=flashes>
+                {% for message in messages %}
+                    <center>{{ message }}</center>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
     </head>
     <body>
+        <center>
+            <form class="container" action="/register" method="POST">
+                <label for="username">Username</label><br>
+                <input class="form-control" type="text" name="username"><br>
+                <label for="password">Password</label><br>
+                <input class="form-control" type="password" name="password"><br>
+                <label for="match">Retype Your Password</label><br>
+                <input class="form-control" type="match" name="match"><br>
+                <button class="submit-button" type="submit">Register</button>
+            </form>
+        </center>
     </body>
 </html>
