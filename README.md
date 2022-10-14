@@ -14,3 +14,7 @@ To allow people to better manage their daily tasks.
 ## Task boards
 
 [Link to All Task Boards](https://github.com/software-students-fall2022/web-app-exercise-team-14-1/projects?query=is%3Aopen)
+
+## Wireframes
+
+[Link to Wireframes](https://www.figma.com/file/d7XMout6NMehm1fALx5g74/Wireframe?node-id=0%3A1)
