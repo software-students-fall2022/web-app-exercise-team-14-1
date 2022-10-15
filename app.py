@@ -8,6 +8,34 @@ import datetime
 app = Flask(__name__)
 app.secret_key = urandom(32)
 
+# array of todo items
+dummyData = [
+    {
+        'title': "Software Engineering Meeting",
+        'content': "Meeting",
+        'label': "Schoolwork",
+        'Date': "10/16/2022",
+        'Time': "4:00 pm",
+        'Author': "User"
+    },
+    {
+        'title': "Biology paper",
+        'content': "Paper on prevalence of disease",
+        'label': "Schoolwork",
+        'Date': "10/16/2022",
+        'Time': "12:00 pm",
+        'Author': "User"
+    },  
+    {
+        'title': "Tennis game",
+        'content': "At astoria park",
+        'label': "Hobby",
+        'Date': "10/16/2022",
+        'Time': "10:00 am",
+        'Author': "User"
+    },  
+]
+
 @app.route('/')
 def login():
     """
@@ -54,7 +82,9 @@ def homepage():
     """
     Route for the homepage page
     """
-    return render_template("homepage.html")
+    
+    #use dummy data for now
+    return render_template("homepage.html", dummyData=dummyData)
 
 @app.route('/all')
 def all():
@@ -69,6 +99,13 @@ def add():
     Route for the add todo page
     """
     return render_template("add.html")
+
+@app.route('/search')
+def search():
+    """
+    Route for the search page
+    """
+    return render_template("search.html")
 
 @app.route('/logout')
 def logout():

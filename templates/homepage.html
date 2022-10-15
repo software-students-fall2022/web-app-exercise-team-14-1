@@ -1,3 +1,22 @@
-{% extends 'base.html' %} {% block container %}
-This is the home page.
+{% extends 'base.html' %} 
+
+{% block container %}
+
+
+<section class="home-container">
+    <h1>Today's Reminders</h1>
+    {% for data in dummyData %}
+        <div class="content">
+            <div class="label">
+                <h2>{{data.label}}</h2>
+            </div>
+            <div class="title">
+                <p>{{data.title}}</p>
+            </div>
+            
+        </div>
+    {% endfor %}
+</section>
+
+
 {% endblock %}
