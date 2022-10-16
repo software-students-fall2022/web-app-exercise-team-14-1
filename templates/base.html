@@ -1,20 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Template</title>
+        <title>TODO APP</title>
         <link rel="stylesheet" href="../static/css/styles.css">
 
     </head>
 <body>
-    <ul class="topnav">
-      <li><a href="{{url_for('homepage')}}">Home</a></li>
-      <li><a href="{{url_for('all')}}">View All</a></li>
-      <li><a href="{{url_for('add')}}">Add ToDo</a></li>
-          <div class="topnav-right">
-            <li><a class="logout" href="{{url_for('logout')}}">Log Out</a></li>
-        </div>
-    </ul>
-    {% block container %}
-    {% endblock %}
+    <section class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1>TODO APP</h1>
+                <!-- TODO logout icon -->
+                <a class="logout" href="{{url_for('logout')}}">Log Out</a>
+            </div>
+        </header>
+
+        {% block container %}
+        {% endblock %}
+
+    </section>
+    <!-- TODO nav icons -->
+    <footer class="footer-nav">
+        <ul>
+            <li>
+                <a href="{{url_for('homepage')}}">Home</a>
+            </li>
+            <li>
+                <a href="{{url_for('search')}}">Search</a>
+            </li>
+            <li>
+                <a href="{{url_for('add')}}">Add</a>
+            </li>
+            <li>
+                <a href="{{url_for('all')}}">View All</a>
+            </li>
+    
+        </ul>
+    </footer>
 </body>
 </html>
