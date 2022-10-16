@@ -107,6 +107,13 @@ def search():
     """
     return render_template("search.html")
 
+@app.route('/edit')
+def edit():
+    """
+    Route for the search page
+    """
+    return render_template("edit.html")
+
 @app.route('/logout')
 def logout():
     """
