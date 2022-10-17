@@ -10,13 +10,21 @@
     <section class="container">
         <header class="header">
             <div class="header-content">
-                <h1>Hello [User]</h1>
-                <!-- TODO logout icon -->
-                <a class="logout" href="{{url_for('logout')}}">
-                    <span class="material-icons logout">
-                        logout
-                    </span>
-                </a>
+                {% if user %}
+                    <h1>Hello {{user}}</h1>
+                    <a class="logout" href="{{url_for('logout')}}">
+                        <span class="material-icons logout">
+                            logout
+                        </span>
+                    </a>
+                {% else %}
+                    <a class="previous" href="{{url_for('homepage')}}">
+                        <span class="material-icons">
+                            arrow_back_ios
+                        </span>
+                    </a>
+                    <h1>{{ page }}</h1>
+                {% endif %}
             </div>
         </header>
 
@@ -24,7 +32,6 @@
         {% endblock %}
 
     </section>
-    <!-- TODO nav icons -->
     <footer class="footer-nav">
         <ul>
             <li>
