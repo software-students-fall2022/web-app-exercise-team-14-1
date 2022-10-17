@@ -84,35 +84,35 @@ def homepage():
     """
     
     #use dummy data for now
-    return render_template("homepage.html", dummyData=dummyData)
+    return render_template("homepage.html", dummyData=dummyData, user='demo')
 
 @app.route('/all')
 def all():
     """
     Route for the view all page
     """
-    return render_template("all.html")
+    return render_template("all.html", page="View All")
 
 @app.route('/add')
 def add():
     """
     Route for the add todo page
     """
-    return render_template("add.html")
+    return render_template("add.html", page="Add")
 
 @app.route('/search')
 def search():
     """
     Route for the search page
     """
-    return render_template("search.html")
+    return render_template("search.html", page="Search")
 
 @app.route('/edit')
 def edit():
     """
     Route for the search page
     """
-    return render_template("edit.html")
+    return render_template("edit.html", page="Edit")
 
 @app.route('/logout')
 def logout():
