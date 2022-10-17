@@ -12,7 +12,7 @@ app.secret_key = urandom(32)
 dummyData = [
     {
         'title': "Software Engineering Meeting",
-        'content': "Meeting",
+        'details': "Meeting",
         'label': "Schoolwork",
         'Date': "10/16/2022",
         'Time': "4:00 pm",
@@ -20,7 +20,7 @@ dummyData = [
     },
     {
         'title': "Biology paper",
-        'content': "Paper on prevalence of disease",
+        'details': "Paper on prevalence of disease",
         'label': "Schoolwork",
         'Date': "10/16/2022",
         'Time': "12:00 pm",
@@ -28,7 +28,7 @@ dummyData = [
     },  
     {
         'title': "Tennis game",
-        'content': "At astoria park",
+        'details': "At astoria park",
         'label': "Hobby",
         'Date': "10/16/2022",
         'Time': "10:00 am",
@@ -107,12 +107,44 @@ def search():
     """
     return render_template("search.html", page="Search")
 
+# with mongodb, @app.route('/edit/<mongoid>')
 @app.route('/edit')
 def edit():
     """
-    Route for the search page
+    Route for the edit page
+    TODO
+    Ex: find query from example app: 
+    doc = db.exampleapp.find_one({"_id": ObjectId(mongoid)})
+    then pass in doc to the render template
+    return render_template("edit.html", page="Edit", doc=doc)
     """
     return render_template("edit.html", page="Edit")
+
+# route to accept the form submission
+@app.route('/edit/<mongoid>', methods=['POST'])
+def edit_todo(mongoid):
+    """
+    Route for POST requests to the edit page.
+    Accepts the form submission data for the specified document and updates the document in the database.
+    """
+    # Ex from prof's example app
+    
+    # name = request.form['fname']
+    # message = request.form['fmessage']
+
+    # doc = {
+    #     # "_id": ObjectId(mongoid), 
+    #     "name": name, 
+    #     "message": message, 
+    #     "created_at": datetime.datetime.utcnow()
+    # }
+
+    # db.exampleapp.update_one(
+    #     {"_id": ObjectId(mongoid)}, # match criteria
+    #     { "$set": doc }
+    # )
+
+    return redirect(url_for("homepage"))
 
 @app.route('/logout')
 def logout():

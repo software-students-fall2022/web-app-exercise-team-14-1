@@ -1,4 +1,45 @@
 {% extends 'base.html' %} 
 {% block container %}
-This is the edit page.
+<form action="{{url_for('edit_todo', mongoid=mongoid)}}" method="POST" class="edit-form">
+    <div >
+        <label for="title">Title</label>
+        {#}
+            <!-- value="{{doc.title}}" -->
+        #}
+        <input name="title" id="title" type="text" value="PLACEHOLDER TITLE" required>
+    </div>
+    <div>
+        <label for="details">Details</label>
+        {#
+            <!-- {{doc.details}} -->
+        #}
+        <textarea name="details" id="details">PLACEHOLDER DETAILS</textarea>
+    </div>
+    <div>
+        <label for="label">Label</label>
+        {#
+            <!-- {{doc.label}} -->
+        #}
+        <input name="label" id="label" type="text" value="PLACEHOLDER LABEL">
+    </div>
+    <div>
+        <label for="date">Date (mm/dd/yyyy)</label>
+        {#
+            TODO: add validation
+            <!-- {{doc.date}} -->
+        #}
+        <input name="date" id="date" type="text" value="PLACEHOLDER DATE" required>
+    </div>
+    <div>
+        <label for="time">Time</label>
+        {#
+            <!-- {{doc.time}} -->
+        #}
+        <input name="time" id="time" type="text" value="PLACEHOLDER TIME" required>
+    </div>
+    <div class="button-container">
+        <button type="reset">Cancel Changes</button>
+        <button type="submit">Confirm Changes</button>
+    </div>
+</form>
 {% endblock %}
