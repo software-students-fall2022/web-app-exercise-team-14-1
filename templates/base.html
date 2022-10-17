@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         <title>TODO APP</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="../static/css/styles.css">
 
     </head>
@@ -9,9 +10,13 @@
     <section class="container">
         <header class="header">
             <div class="header-content">
-                <h1>TODO APP</h1>
+                <h1>Hello [User]</h1>
                 <!-- TODO logout icon -->
-                <a class="logout" href="{{url_for('logout')}}">Log Out</a>
+                <a class="logout" href="{{url_for('logout')}}">
+                    <span class="material-icons logout">
+                        logout
+                    </span>
+                </a>
             </div>
         </header>
 
@@ -23,16 +28,36 @@
     <footer class="footer-nav">
         <ul>
             <li>
-                <a href="{{url_for('homepage')}}">Home</a>
+                <a class="icon-nav" href="{{url_for('homepage')}}">
+                    <span class="material-icons home">
+                        home
+                    </span>
+                    <p>Home</p>
+                </a>
             </li>
             <li>
-                <a href="{{url_for('search')}}">Search</a>
+                <a class="icon-nav" href="{{url_for('search')}}">
+                    <span class="material-icons search">
+                        search
+                    </span>
+                    <p>Search</p>
+                </a>
             </li>
             <li>
-                <a href="{{url_for('add')}}">Add</a>
+                <a class="icon-nav" href="{{url_for('add')}}">
+                    <span class="material-icons add">
+                        add
+                    </span>
+                    <p>Add</p>
+                </a>
             </li>
             <li>
-                <a href="{{url_for('all')}}">View All</a>
+                <a class="icon-nav" href="{{url_for('all')}}">
+                    <span class="material-icons view">
+                        menu_book
+                    </span>
+                    <p>View All</p>
+                </a>
             </li>
     
         </ul>
