@@ -63,16 +63,21 @@ def login():
     if (request.args):
         # add valid username and login checking here
         # current only has a placeholder
-        if bool(request.args["username"]) and bool(request.args["password"]):
-            userInput = request.args["username"]
+        if bool(request.args["email"]) and bool(request.args["password"]):
+            emailInput = request.args["email"]
             passwordInput = request.args["password"]
-            if (userInput == "demo" and passwordInput == "123"):
-                return(redirect(url_for("homepage")))
+            userPasswordDocs = db.user.find({"email" : emailInput}, {"password": 1})
+            if (userPasswordDocs.explain().get("executionStats", {}).get("nReturned") == 1):
+                    if (userPassword[0] != passwordInput):
+                        flash('Invalid password.')
+                        return(redirect(url_for("login")))
+                    else:
+                        return(redirect(url_for("homepage")))
             else:
-                flash('Invalid login credentials.')
+                flash('No user found for email.')
                 return(redirect(url_for("login")))
         else:
-            flash('Please enter an username and password.')
+            flash('Please enter an email and password.')
             return(redirect(url_for("login")))
     else:
         return render_template("login.html")
@@ -83,7 +88,7 @@ def register():
     Route for the register page
     """
     if request.method == 'POST':
-        u = request.form['username']
+        u = request.form['email']
         p = request.form['password']
         m = request.form['match']
         if not u or not p or not m:
