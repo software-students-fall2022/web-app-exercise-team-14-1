@@ -61,14 +61,12 @@ def login():
     Otherwise display login form
     """
     if (request.args):
-        # add valid username and login checking here
-        # current only has a placeholder
         if bool(request.args["email"]) and bool(request.args["password"]):
             emailInput = request.args["email"]
             passwordInput = request.args["password"]
             userPasswordDocs = db.user.find({"email" : emailInput}, {"password": 1})
             if (userPasswordDocs.explain().get("executionStats", {}).get("nReturned") == 1):
-                    if (userPassword[0] != passwordInput):
+                    if (userPasswordDocs.next()["password"] != passwordInput):
                         flash('Invalid password.')
                         return(redirect(url_for("login")))
                     else:
@@ -88,14 +86,18 @@ def register():
     Route for the register page
     """
     if request.method == 'POST':
-        u = request.form['email']
+        e = request.form['email']
         p = request.form['password']
         m = request.form['match']
-        if not u or not p or not m:
+        userWithEmail = db.user.find({"email" : e})
+        if not e or not p or not m:
             flash('Please fill all fields.')
+        elif userWithEmail.explain().get("executionStats", {}).get("nReturned") > 0:
+            flash('An account was already created for this email.')
         elif p != m:
             flash('Password does not match.')
         else:
+            db.user.insert_one({"email": e, "password": p})
             return redirect(url_for('login'))
     return render_template("register.html")
 
