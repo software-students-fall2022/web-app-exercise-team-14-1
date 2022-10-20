@@ -125,8 +125,22 @@ def add():
     """
     return render_template("add.html", page="Add")
 
-@app.route('/search')
+@app.route('/search', methods=['GET','POST'])
 def search():
+    # get info from POST
+
+
+    # search info in database based on search by (label, title, date)
+
+    # label
+    # get all docs with `given_label in doc.labels`
+
+    # title
+    # get all docs with `title in doc.title`
+
+    # date
+    # get all docs with `date == doc.date`
+
     """
     Route for the search page
     """
