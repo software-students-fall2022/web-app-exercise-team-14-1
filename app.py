@@ -24,35 +24,36 @@ except Exception as e:
     print(' *', "Failed to connect to MongoDB at", config['MONGO_URI'])
     print('Database connection error:', e) # debug
 
-
-
 # array of todo items
-dummyData = [
-    {
-        'title': "Software Engineering Meeting",
-        'details': "Meeting",
-        'label': "Schoolwork",
-        'Date': "10/16/2022",
-        'Time': "4:00 pm",
-        'Author': "User"
-    },
-    {
-        'title': "Biology paper",
-        'details': "Paper on prevalence of disease",
-        'label': "Schoolwork",
-        'Date': "10/16/2022",
-        'Time': "12:00 pm",
-        'Author': "User"
-    },
-    {
-        'title': "Tennis game",
-        'details': "At astoria park",
-        'label': "Hobby",
-        'Date': "10/16/2022",
-        'Time': "10:00 am",
-        'Author': "User"
-    },
-]
+# dummyData = [
+#     {
+#         'title': "Software Engineering Meeting",
+#         'details': "Meeting",
+#         'label': "Schoolwork",
+#         'Date': "10/16/2022",
+#         'Time': "4:00 pm",
+#         'Author': "User"
+#     },
+#     {
+#         'title': "Biology paper",
+#         'details': "Paper on prevalence of disease",
+#         'label': "Schoolwork",
+#         'Date': "10/16/2022",
+#         'Time': "12:00 pm",
+#         'Author': "User"
+#     },
+#     {
+#         'title': "Tennis game",
+#         'details': "At astoria park",
+#         'label': "Hobby",
+#         'Date': "10/16/2022",
+#         'Time': "10:00 am",
+#         'Author': "User"
+#     },
+# ]
+
+#for storing the user information after logging in
+username = {}
 
 @app.route('/')
 def login():
@@ -65,11 +66,15 @@ def login():
             emailInput = request.args["email"]
             passwordInput = request.args["password"]
             userPasswordDocs = db.user.find({"email" : emailInput}, {"password": 1})
+            doc = db.user.find_one({"email": emailInput})
+            username['user_id'] = doc['_id']
             if (userPasswordDocs.explain().get("executionStats", {}).get("nReturned") == 1):
                     if (userPasswordDocs.next()["password"] != passwordInput):
                         flash('Invalid password.')
                         return(redirect(url_for("login")))
                     else:
+                        username['username'] = emailInput.split("@")[0]
+                        # print("username: " + username)
                         return(redirect(url_for("homepage")))
             else:
                 flash('No user found for email.')
@@ -107,9 +112,18 @@ def homepage():
     """
     Route for the homepage page
     """
-
+    print(username)
+    todos = db.user.find_one({'_id': ObjectId(username['user_id'])}, {'todos': 1})['todos']
+    today = datetime.date.today()
+    date = today.strftime('%m/%d/%Y')
+    todayTodos = list(db.Tasks.find({
+        '_id': {
+            '$in': todos
+        },
+        'date': date,
+    }))
     #use dummy data for now
-    return render_template("homepage.html", dummyData=dummyData, user='demo')
+    return render_template("homepage.html",todos = todayTodos, user=username['username'])
 
 @app.route('/all')
 def all():
@@ -176,6 +190,9 @@ def logout():
     """
     Route to logout
     """
+    #reset username dict
+    username = {}
+    print(username)
     return(redirect(url_for("login")))
 
 if __name__ == "__main__":
