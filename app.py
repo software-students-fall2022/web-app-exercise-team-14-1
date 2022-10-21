@@ -78,19 +78,19 @@ class User(flask_login.UserMixin):
         self.id = data['_id'] # shortcut to the _id field
         self.data = data # all user data from the database is stored within the data field
 
-def locate_user(user_id=None, email=None):
+def locate_user(user_id=None, username=None):
     '''
-    Return a User object for the user with the given id or email address, or None if no such user exists.
+    Return a User object for the user with the given id or username, or None if no such user exists.
     @param user_id: the user_id of the user to locate
-    @param email: the email address of the user to locate
+    @param username: the username address of the user to locate
     '''
     if user_id:
         # loop up by user_id
         criteria = {"_id": ObjectId(user_id)}
     else:
-        # loop up by email
-        criteria = {"email": email}
-    doc = db.users.find_one(criteria) # find a user with this email
+        # loop up by username
+        criteria = {"username": username}
+    doc = db.users.find_one(criteria) # find a user with the given criteria
 
     # if user exists in the database, create a User object and return it
     if doc:
@@ -125,15 +125,18 @@ def login():
     Processes login and redirects accordingly if request was made
     Otherwise display login form
     """
+
+    print(request.args, file=sys.stderr)
+
     # if the current user is already signed in, there is no need to sign up, so redirect them
     if flask_login.current_user.is_authenticated:
         flash('You are already logged in, silly!') # flash can be used to pass a special message to the template we are about to render
         return redirect(url_for('homepage')) # tell the web browser to make a request for the / route (the home function)
     if (request.args):
-        if bool(request.args["email"]) and bool(request.args["password"]):
-            emailInput = request.args["email"]
+        if bool(request.args["username"]) and bool(request.args["password"]):
+            usernameInput = request.args["username"]
             passwordInput = request.args["password"]
-            user = locate_user(email=emailInput)
+            user = locate_user(username=usernameInput)
             if user:
                     if check_password_hash(user.data['password'], passwordInput):
                         flask_login.login_user(user)
@@ -142,10 +145,10 @@ def login():
                         flash('Invalid password.')
                         return(redirect(url_for("login")))
             else:
-                flash('No user found for email.')
+                flash('No user found for username.')
                 return(redirect(url_for("login")))
         else:
-            flash('Please enter an email and password.')
+            flash('Please enter an username and password.')
             return(redirect(url_for("login")))
     else:
         return render_template("login.html")
@@ -158,26 +161,27 @@ def register():
     if request.method == 'GET':
         return render_template("register.html")
     if request.method == 'POST':
-        e = request.form['email']
+        u = request.form['username']
         p = request.form['password']
         m = request.form['match']
-        userWithEmail = db.users.find({"email" : e})
-        if not e or not p or not m:
+
+        if not u or not p or not m:
             flash('Please fill all fields.')
-        elif locate_user(email=e):
-            flash('An account was already created for this email.')
+        elif locate_user(username=u):
+            flash('An account was already created with this username.')
         elif p != m:
             flash('Password does not match.')
         else:
             hashed_password = generate_password_hash(p)
-            user_id = db.users.insert_one({"email": e, "password": hashed_password, "todo": {}}).inserted_id
-            if user_id:
-                user = User({
-                    "_id": user_id,
-                    "email": e,
-                    "password": hashed_password,
-                    "todos": []
-                })
+            db.users.insert_one({"username": u, "password": hashed_password, "todos": []})
+            # user_id = db.users.insert_one({"username": u, "password": hashed_password, "todos": []}).inserted_id
+            # if user_id:
+            #     user = User({
+            #         "_id": user_id,
+            #         "username": u,
+            #         "password": hashed_password,
+            #         "todos": []
+            #     })
             return redirect(url_for('login'))
     else:
         if flask_login.current_user.is_authenticated:
@@ -194,20 +198,23 @@ def homepage():
     """
 
     # find the todos array using the logged in user's ObjectId
-    print(flask_login.current_user, file=sys.stderr)
-    todos = db.users.find_one({'_id': ObjectId(username['user_id'])}, {'todos': 1})['todos']
+    print(flask_login.current_user.id, file=sys.stderr)
+    print(flask_login.current_user.data, file=sys.stderr)
+    todos = flask_login.current_user.data['todos']
+
     # find the today todos
     today = datetime.date.today()
     date = today.strftime('%m/%d/%Y')
     # get today's todos in a list
-    todayTodos = list(db.tasks.find({
+    todayTodos = list(db.todos.find({
         '_id': {
             '$in': todos
         },
         'date': date,
     }))
+
     # pass in today todos and the user's username to the homepage template
-    return render_template("homepage.html",todos = todayTodos, user=username['username'])
+    return render_template("homepage.html", todos = todayTodos)
 
 
 @app.route('/all')
@@ -237,8 +244,7 @@ def search():
 
         # search info in database based on search by (label, title, date)
         if search_by == 'Label':
-            
-            pass
+            print(flask_login.current_user.data, file=sys.stderr)
         elif search_by == 'Title':
             pass
         else:
@@ -268,7 +274,7 @@ def edit(todo_id):
     """
     Route for the edit page
     """
-    todo = db.tasks.find_one({'_id': ObjectId(todo_id)})
+    todo = db.todos.find_one({'_id': ObjectId(todo_id)})
     return render_template("edit.html", page="Edit", doc=todo)
 
 # route to accept the form submission
@@ -295,7 +301,7 @@ def edit_todo(todo_id):
         'time': time,
     }
 
-    db.tasks.update_one(
+    db.todos.update_one(
         {'_id': ObjectId(todo_id)}, 
         {'$set': doc}
     )
@@ -316,7 +322,7 @@ def delete(todo_id):
     """
     Route for GET requests to the delete page.
     """
-    # db.tasks.delete_one({"_id": ObjectId(todo_id)})
+    # db.todos.delete_one({"_id": ObjectId(todo_id)})
     return redirect(url_for('homepage')) 
 
 

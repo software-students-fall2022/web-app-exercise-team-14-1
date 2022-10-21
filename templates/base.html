@@ -11,7 +11,7 @@
         <header class="header">
             <div class="header-content">
                 {% if user %}
-                    <h1>Hello {{user}}</h1>
+                    <h1>Hello {{user.data.username}}</h1>
                     <a class="logout" href="{{url_for('logout')}}">
                         <span class="material-icons logout">
                             logout
