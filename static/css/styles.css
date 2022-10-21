@@ -216,3 +216,67 @@ body {
     border: 2px solid black;
     border-radius: 10px;
 }
+
+/* Login and register styles */
+
+.authentication-container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.authentication-container input[type=text], select{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    line-height: 50px;
+    font-size: 50px;
+}
+
+.authentication-container label {
+    padding: 8px;
+    font-size: 50px;
+}
+
+.authentication-container input[type=password], select{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    line-height: 50px;
+    font-size: 50px;
+}
+
+.authentication-container input[type=submit], select{
+    width: fit-content;
+
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 50px;
+}
+
+.message{
+    color: red;
+    font-size: 40px;
+}
+
+.authentication-content .authentication-label {
+    padding: 5px 40px;
+    background-color: rgb(175, 222, 249);
+    border-radius: 20px;
+    margin-bottom: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 15px 30px -10px, rgba(0, 0, 0, 0.3) 0px 8px 15px -5px;
+}
