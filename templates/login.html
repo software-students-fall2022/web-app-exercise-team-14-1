@@ -2,28 +2,40 @@
 <html>
     <head>
         <title>Login</title>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul class=flashes>
-                {% for message in messages %}
-                    <center>{{ message }}</center>
-                {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="../static/css/styles.css">
     </head>
     <body>
-        <center>
-            <form class="container" action="/" method="GET">
-                <label for="email">Email</label><br>
-                <input class="form-control" type="text" name="email" placeholder="Email"><br>
-                <label for="password">Password</label><br>
-                <input class="form-control" type="password" name="password" placeholder="Password"><br>
-                <button class="submit-button" type="submit">Log In</button>
-            </form>
-            <form action="/register" method="GET">
-                <button class="submit-button" type="submit">Create an account</button>
-            </form>
-        </center>
+        <section class="authentication-container">
+            <div class="authentication-content">
+                <div class="authentication-label">
+                    <center>
+                        <form class="authentication-container" action="/" method="GET">
+                            {% with messages = get_flashed_messages() %}
+                                {% if messages %}
+                                    <ul class=flashes>
+                                    {% for message in messages %}
+                                        <center>{{ message }}</center>
+                                    {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            {% endwith %}
+                            <label for="email">Email</label><br>
+                            <input class="form-control" type="text" name="email" placeholder="Email"><br>
+                            <label for="password">Password</label><br>
+                            <input class="form-control" type="password" name="password" placeholder="Password"><br>
+                            <center>
+                                <input class="submit-button" type="submit" value="Log In">
+                            </center>
+                        </form>
+                        <form class="authentication-container" action="/register" method="GET">
+                            <center>
+                                <input class="submit-button" type="submit" value="Create an Account">
+                            </center>
+                        </form>
+                    </center>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
