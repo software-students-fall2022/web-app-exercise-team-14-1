@@ -1,12 +1,13 @@
 {% extends 'base.html' %} {% block container %}
 <div class="search-container">
     <form action="{{url_for('search')}}" method="POST" class="search-bar">
-        <input type="text" placeholder="Search ToDo's">
-        <p id="search-by-buttons">
-            <label><input type="radio" name="search-by" value="Label"><span>Label</span></label>
-            <label><input type="radio" name="search-by" value="Title"><span>Title</span></label>
-            <label><input type="radio" name="search-by" value="Date"><span>Date</span></label>
-        </p>
+        <input type="text" placeholder="Search ToDos" autofocus>
+        <p>Search by...</p>
+        <div id="search-by-buttons">
+            <input type="submit" name="search-by" value="Label"></input>
+            <input type="submit" name="search-by" value="Title"></input>
+            <input type="submit" name="search-by" value="Date"></input>
+        </div>
     </form>
 </div>
 {% endblock %}

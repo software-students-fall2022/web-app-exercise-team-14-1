@@ -219,7 +219,7 @@ body {
 
 
 
-/* SEARCH PAGE STYLES */
+/***************** SEARCH PAGE STYLES *****************/
 
 .search-bar {
     display: flex;
@@ -229,28 +229,29 @@ body {
 
 .search-bar input[type="text"] {
     width: 100%;
+    margin: 10px;
+}
+
+.search-bar p {
+    font-size: 50px;
 }
 
 #search-by-buttons {
     display: flex;
+    width: 100%;
     justify-content: space-evenly;
+    margin-top: 10px;
 }
 
-#search-by-buttons input[type="radio"] {
-    display: none;
-}
-
-#search-by-buttons input[type="radio"]:checked span {
+.search-bar input[type="submit"]:hover {
     background-color: #648bc6;
     color: black;
 }
 
-#search-by-buttons span {
-    /* display: inline-block; */
+.search-bar input {
     padding: 10px;
-    text-transform: uppercase;
-    border: 2px solid #648bc6;
+    border: 3px solid #648bc6;
     border-radius: 3px;
     color: #648bc6;
+    font-size: 50px;
 }
-
