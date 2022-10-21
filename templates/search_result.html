@@ -1,0 +1,22 @@
+{% extends 'base.html' %} {% block container %}
+
+{% for result in results %}
+<div class="content">
+    <div class="label">
+        <h2>{{data.label}}</h2>
+    </div>
+    <div class="title">
+        <span class="material-icons">
+            clear
+        </span>
+        <p>{{data.title}}</p>
+        <a class="edit-icon" href="{{url_for('edit')}}">
+            <span class="material-icons">
+                edit
+            </span>
+        </a>
+    </div>
+</div>
+
+
+{% endblock %}

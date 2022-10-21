@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block container %}
 <div class="search-container">
     <form action="{{url_for('search')}}" method="POST" class="search-bar">
-        <input type="text" placeholder="Search ToDos" autofocus>
+        <input type="text" name="query" placeholder="Search ToDos" autofocus></input>
         <p>Search by...</p>
         <div id="search-by-buttons">
             <input type="submit" name="search-by" value="Label"></input>

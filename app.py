@@ -128,23 +128,36 @@ def add():
 @app.route('/search', methods=['GET','POST'])
 def search():
     # get info from POST
+    if request.method == 'POST':
+        query = request.form['query']
+        search_by = request.form['search-by']
+        results = [] # temporary until we get user login situated
 
+        # search info in database based on search by (label, title, date)
+        if search_by == 'Label':
+            
+            pass
+        elif search_by == 'Title':
+            pass
+        else:
+            pass
 
-    # search info in database based on search by (label, title, date)
+        render_template('search_result.html', results = results)
+        # label
+        # get all docs with `given_label in doc.labels`
 
-    # label
-    # get all docs with `given_label in doc.labels`
+        # title
+        # get all docs with `title in doc.title`
 
-    # title
-    # get all docs with `title in doc.title`
+        # date
+        # get all docs with `date == doc.date`
 
-    # date
-    # get all docs with `date == doc.date`
-
-    """
-    Route for the search page
-    """
     return render_template("search.html", page="Search")
+
+@app.route('/search-result/<type>/<query>', )
+def search_results():
+
+    return render_template('search_result.html')
 
 # with mongodb, @app.route('/edit/<mongoid>')
 @app.route('/edit')
