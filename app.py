@@ -5,6 +5,7 @@ import pymongo
 import sys
 import datetime
 from dotenv import dotenv_values
+import certifi
 
 # modules useful for user authentication
 import flask_login
@@ -22,7 +23,7 @@ login_manager.init_app(app)
 config = dotenv_values(".env")
 
 # connect to the database
-cxn = pymongo.MongoClient(config['MONGO_URI'], serverSelectionTimeoutMS=5000)
+cxn = pymongo.MongoClient(config['MONGO_URI'], serverSelectionTimeoutMS=5000, tlsCAFile=certifi.where())
 try:
     # verify the connection works by pinging the database
     cxn.admin.command('ping') # The ping command is cheap and does not require auth.
