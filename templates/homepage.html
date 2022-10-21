@@ -5,17 +5,20 @@
 
 <section class="home-container">
     <h1>Today's Reminders</h1>
-    {% for data in dummyData %}
+    {% for data in todos %}
         <div class="content">
             <div class="label">
                 <h2>{{data.label}}</h2>
             </div>
             <div class="title">
-                <span class="material-icons">
-                    clear
-                </span>
+                <a class="delete-icon" href="{{url_for('delete', todo_id=data._id)}}">
+                    <span class="material-icons">
+                        clear
+                    </span>
+                </a>
+
                 <p>{{data.title}}</p>
-                <a class="edit-icon" href="{{url_for('edit')}}">
+                <a class="edit-icon" href="{{url_for('edit', todo_id=data._id)}}">
                     <span class="material-icons">
                         edit
                     </span>
