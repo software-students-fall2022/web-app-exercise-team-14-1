@@ -24,35 +24,36 @@ except Exception as e:
     print(' *', "Failed to connect to MongoDB at", config['MONGO_URI'])
     print('Database connection error:', e) # debug
 
-
-
 # array of todo items
-dummyData = [
-    {
-        'title': "Software Engineering Meeting",
-        'details': "Meeting",
-        'label': "Schoolwork",
-        'Date': "10/16/2022",
-        'Time': "4:00 pm",
-        'Author': "User"
-    },
-    {
-        'title': "Biology paper",
-        'details': "Paper on prevalence of disease",
-        'label': "Schoolwork",
-        'Date': "10/16/2022",
-        'Time': "12:00 pm",
-        'Author': "User"
-    },
-    {
-        'title': "Tennis game",
-        'details': "At astoria park",
-        'label': "Hobby",
-        'Date': "10/16/2022",
-        'Time': "10:00 am",
-        'Author': "User"
-    },
-]
+# dummyData = [
+#     {
+#         'title': "Software Engineering Meeting",
+#         'details': "Meeting",
+#         'label': "Schoolwork",
+#         'Date': "10/16/2022",
+#         'Time': "4:00 pm",
+#         'Author': "User"
+#     },
+#     {
+#         'title': "Biology paper",
+#         'details': "Paper on prevalence of disease",
+#         'label': "Schoolwork",
+#         'Date': "10/16/2022",
+#         'Time': "12:00 pm",
+#         'Author': "User"
+#     },
+#     {
+#         'title': "Tennis game",
+#         'details': "At astoria park",
+#         'label': "Hobby",
+#         'Date': "10/16/2022",
+#         'Time': "10:00 am",
+#         'Author': "User"
+#     },
+# ]
+
+#for storing the user information after logging in
+username = {}
 
 @app.route('/')
 def login():
@@ -65,11 +66,18 @@ def login():
             emailInput = request.args["email"]
             passwordInput = request.args["password"]
             userPasswordDocs = db.user.find({"email" : emailInput}, {"password": 1})
+            #doc = db.users.find_one({'email': emailInput})
+            # may need to change this with new login system
+            doc = db.users.find_one({"email": emailInput})
+            # save the user ObjectID in the username dict for later use
+            username['user_id'] = doc['_id']
             if (userPasswordDocs.explain().get("executionStats", {}).get("nReturned") == 1):
                     if (userPasswordDocs.next()["password"] != passwordInput):
                         flash('Invalid password.')
                         return(redirect(url_for("login")))
                     else:
+                        # save the user's username in the username dict for later use
+                        username['username'] = emailInput.split("@")[0]
                         return(redirect(url_for("homepage")))
             else:
                 flash('No user found for email.')
@@ -107,9 +115,20 @@ def homepage():
     """
     Route for the homepage page
     """
-
-    #use dummy data for now
-    return render_template("homepage.html", dummyData=dummyData, user='demo')
+    # find the todos array using the logged in user's ObjectId
+    todos = db.users.find_one({'_id': ObjectId(username['user_id'])}, {'todos': 1})['todos']
+    # find the today todos
+    today = datetime.date.today()
+    date = today.strftime('%m/%d/%Y')
+    # get today's todos in a list
+    todayTodos = list(db.tasks.find({
+        '_id': {
+            '$in': todos
+        },
+        'date': date,
+    }))
+    # pass in today todos and the user's username to the homepage template
+    return render_template("homepage.html",todos = todayTodos, user=username['username'])
 
 @app.route('/all')
 def all():
@@ -132,50 +151,60 @@ def search():
     """
     return render_template("search.html", page="Search")
 
-# with mongodb, @app.route('/edit/<mongoid>')
-@app.route('/edit')
-def edit():
+@app.route('/edit/<todo_id>')
+def edit(todo_id):
     """
     Route for the edit page
-    TODO
-    Ex: find query from example app:
-    doc = db.exampleapp.find_one({"_id": ObjectId(mongoid)})
-    then pass in doc to the render template
-    return render_template("edit.html", page="Edit", doc=doc)
     """
-    return render_template("edit.html", page="Edit")
+    todo = db.tasks.find_one({'_id': ObjectId(todo_id)})
+    return render_template("edit.html", page="Edit", doc=todo)
 
 # route to accept the form submission
-@app.route('/edit/<mongoid>', methods=['POST'])
-def edit_todo(mongoid):
+@app.route('/edit/<todo_id>', methods=['POST'])
+def edit_todo(todo_id):
     """
     Route for POST requests to the edit page.
     Accepts the form submission data for the specified document and updates the document in the database.
     """
-    # Ex from prof's example app
 
-    # name = request.form['fname']
-    # message = request.form['fmessage']
+    title = request.form['title']
+    content = request.form['details']
+    label = request.form['label']
+    date = request.form['date']
+    time = request.form['time']
+    
+    doc = {
+        'title': title,
+        'content': content,
+        'label': label,
+        'date': date,
+        'time': time,
+    }
 
-    # doc = {
-    #     # "_id": ObjectId(mongoid),
-    #     "name": name,
-    #     "message": message,
-    #     "created_at": datetime.datetime.utcnow()
-    # }
-
-    # db.exampleapp.update_one(
-    #     {"_id": ObjectId(mongoid)}, # match criteria
-    #     { "$set": doc }
-    # )
+    db.tasks.update_one(
+        {'_id': ObjectId(todo_id)}, 
+        {'$set': doc}
+    )
 
     return redirect(url_for("homepage"))
+
+# route to delete a specific post
+@app.route('/delete/<todo_id>')
+def delete(todo_id):
+    """
+    Route for GET requests to the delete page.
+    """
+    # db.tasks.delete_one({"_id": ObjectId(todo_id)})
+    return redirect(url_for('homepage')) 
 
 @app.route('/logout')
 def logout():
     """
     Route to logout
     """
+    #reset username dict
+    username = {}
+    print(username)
     return(redirect(url_for("login")))
 
 if __name__ == "__main__":
