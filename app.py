@@ -68,7 +68,7 @@ def login():
             userPasswordDocs = db.user.find({"email" : emailInput}, {"password": 1})
             #doc = db.users.find_one({'email': emailInput})
             # may need to change this with new login system
-            doc = db.user.find_one({"email": emailInput})
+            doc = db.users.find_one({"email": emailInput})
             # save the user ObjectID in the username dict for later use
             username['user_id'] = doc['_id']
             if (userPasswordDocs.explain().get("executionStats", {}).get("nReturned") == 1):
