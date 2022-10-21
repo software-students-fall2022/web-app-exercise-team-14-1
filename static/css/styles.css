@@ -216,3 +216,41 @@ body {
     border: 2px solid black;
     border-radius: 10px;
 }
+
+
+
+/* SEARCH PAGE STYLES */
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.search-bar input[type="text"] {
+    width: 100%;
+}
+
+#search-by-buttons {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#search-by-buttons input[type="radio"] {
+    display: none;
+}
+
+#search-by-buttons input[type="radio"]:checked span {
+    background-color: #648bc6;
+    color: black;
+}
+
+#search-by-buttons span {
+    /* display: inline-block; */
+    padding: 10px;
+    text-transform: uppercase;
+    border: 2px solid #648bc6;
+    border-radius: 3px;
+    color: #648bc6;
+}
+

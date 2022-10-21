@@ -3,11 +3,10 @@
     <form action="{{url_for('search')}}" method="POST" class="search-bar">
         <input type="text" placeholder="Search ToDo's">
         <p id="search-by-buttons">
-            <label><input type="radio" name="search-by" value="Label">Label</label>
-            <label><input type="radio" name="search-by" value="Title">Title</label>
-            <label><input type="radio" name="search-by" value="Date">Date</label>
+            <label><input type="radio" name="search-by" value="Label"><span>Label</span></label>
+            <label><input type="radio" name="search-by" value="Title"><span>Title</span></label>
+            <label><input type="radio" name="search-by" value="Date"><span>Date</span></label>
         </p>
     </form>
-
 </div>
 {% endblock %}
