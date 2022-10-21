@@ -190,7 +190,7 @@ def homepage():
     """
     Route for the homepage page
     """
-
+    print(flask_login.current_user, file=sys.stderr)
     #use dummy data for now
     return render_template("homepage.html", dummyData=dummyData, user='demo')
 
