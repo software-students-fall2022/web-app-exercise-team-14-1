@@ -10,7 +10,7 @@
     <section class="container">
         <header class="header">
             <div class="header-content">
-                {% if user %}
+                {% if homepage %}
                     <h1>Hello {{user.data.username}}</h1>
                     <a class="logout" href="{{url_for('logout')}}">
                         <span class="material-icons logout">

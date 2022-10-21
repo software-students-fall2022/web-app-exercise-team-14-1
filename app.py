@@ -126,8 +126,6 @@ def login():
     Otherwise display login form
     """
 
-    print(request.args, file=sys.stderr)
-
     # if the current user is already signed in, there is no need to sign up, so redirect them
     if flask_login.current_user.is_authenticated:
         flash('You are already logged in, silly!') # flash can be used to pass a special message to the template we are about to render
@@ -198,8 +196,6 @@ def homepage():
     """
 
     # find the todos array using the logged in user's ObjectId
-    print(flask_login.current_user.id, file=sys.stderr)
-    print(flask_login.current_user.data, file=sys.stderr)
     todos = flask_login.current_user.data['todos']
 
     # find the today todos
@@ -214,7 +210,7 @@ def homepage():
     }))
 
     # pass in today todos and the user's username to the homepage template
-    return render_template("homepage.html", todos = todayTodos)
+    return render_template("homepage.html", todos = todayTodos, homepage=True)
 
 
 @app.route('/all')
@@ -240,25 +236,30 @@ def search():
     if request.method == 'POST':
         query = request.form['query']
         search_by = request.form['search-by']
-        results = [] # temporary until we get user login situated
 
+        # print(type(query), file=sys.stderr)
+        # print(search_by, file=sys.stderr)
+
+        criteria = {
+            '_id': {'$in': flask_login.current_user.data['todos']}
+        }
         # search info in database based on search by (label, title, date)
         if search_by == 'Label':
-            print(flask_login.current_user.data, file=sys.stderr)
+            criteria['labels'] = query
         elif search_by == 'Title':
-            pass
+            criteria['title'] = query
+            # criteria['title'] = {'$regex' : f'/.*{query}.*/', '$options' : 'i'}
         else:
-            pass
+            criteria['date'] = query
 
-        render_template('search_result.html', results = results)
-        # label
-        # get all docs with `given_label in doc.labels`
+        results = list(db.todos.find(criteria))
+        found = len(results) != 0
 
-        # title
-        # get all docs with `title in doc.title`
+        # print(f'result:{len(results)}')
+        # print(f'found :{found}')
+        # print(criteria)
 
-        # date
-        # get all docs with `date == doc.date`
+        return render_template('search_result.html', results = results, found = found)
 
     return render_template("search.html", page="Search")
 
