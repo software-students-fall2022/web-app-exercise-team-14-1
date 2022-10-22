@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block container %}
+
+{% if found %}
+    {% for result in results %}
+        <div class="content">
+            <div class="label">
+                <h2>{{result.label}}</h2>
+            </div>
+            <div class="title">
+                <span class="material-icons">
+                    clear
+                </span>
+                <p>{{result.title}}</p>
+                <a class="edit-icon" href="{{url_for('edit', todo_id=result._id)}}">
+                    <span class="material-icons">
+                        edit
+                    </span>
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No results for your query.</p>
+{% endif %}
+
+{% endblock %}

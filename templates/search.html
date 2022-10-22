@@ -1,3 +1,13 @@
 {% extends 'base.html' %} {% block container %}
-This is the search page.
+<div class="search-container">
+    <form action="{{url_for('search')}}" method="POST" class="search-bar">
+        <input type="text" name="query" placeholder="Search ToDos" autofocus></input>
+        <p>Search by...</p>
+        <div id="search-by-buttons">
+            <input type="submit" name="search-by" value="Label"></input>
+            <input type="submit" name="search-by" value="Title"></input>
+            <input type="submit" name="search-by" value="Date"></input>
+        </div>
+    </form>
+</div>
 {% endblock %}
