@@ -195,15 +195,15 @@ def homepage():
     """
     Route for the homepage page
     """
-    
+
     # find the todos array using the logged in user's ObjectId
     todos = flask_login.current_user.data['todos']
-    
+
     # print("user id: ", flask_login.current_user.id)
     # print("todos: ", flask_login.current_user.data['todos'])
     # for item in flask_login.current_user.data['todos']:
     #     print (type(item))
-    
+
     # find the today todos
     today = datetime.date.today()
     date = today.strftime('%m/%d/%Y')
@@ -225,7 +225,17 @@ def all():
     """
     Route for the view all page
     """
-    return render_template("all.html", page="View All")
+    # find the todos array using the logged in user's ObjectId
+    todos = flask_login.current_user.data['todos']
+
+    # get all todos in a list
+    allTodos = list(db.todos.find({
+        '_id': {
+            '$in': todos
+        },
+    }).sort([('date', 1), ('time', 1)]))
+
+    return render_template("all.html", todos = allTodos, page="View All")
 
 @app.route('/add')
 @flask_login.login_required
@@ -311,7 +321,7 @@ def edit_todo(todo_id):
     label = request.form['label']
     date = request.form['date']
     time = request.form['time']
-    
+
     # parse the date retrieved from the todo object to mm/dd/YYYY format to be stored in db
     todo_date = datetime.datetime.strptime(date, '%Y-%m-%d')
     reformated_date = todo_date.strftime("%m/%d/%Y")
@@ -334,7 +344,7 @@ def edit_todo(todo_id):
     }
 
     db.todos.update_one(
-        {'_id': ObjectId(todo_id)}, 
+        {'_id': ObjectId(todo_id)},
         {'$set': doc}
     )
 
@@ -349,29 +359,29 @@ def returnToLogin():
     return(redirect(url_for("login")))
 
 # route to delete a specific post
-@app.route('/delete/<todo_id>')
-def delete(todo_id):
+@app.route('/delete/<todo_id>/<dest>')
+def delete(todo_id, dest):
     """
     Route for GET requests to the delete page.
     """
     # delete todo item from todos collection
     db.todos.delete_one({"_id": ObjectId(todo_id)})
-    
+
     # get index of todo item to delete
     id_index = list(flask_login.current_user.data['todos']).index(ObjectId(todo_id))
-    
+
     # set element to none using unset operator
     db.users.update_one(
         {'_id': ObjectId(flask_login.current_user.id)},
         {'$unset': {f'todos.{id_index}': 1}}
     )
-    
+
     # remove none elements in todos array of users collection
     db.users.update_one(
         {'_id': ObjectId(flask_login.current_user.id)},
         {'$pull': {'todos': None}}
     )
-    return redirect(url_for('homepage')) 
+    return redirect(url_for(dest)) 
 
 
 @app.route('/logout')

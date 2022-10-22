@@ -1,3 +1,29 @@
 {% extends 'base.html' %} {% block container %}
-This is the view all page.
+<section class="home-container">
+    <h1>All Tasks</h1>
+    {% for data in todos %}
+        <div class="content">
+            <div class="label">
+                <h2>{{data.label}}</h2>
+            </div>
+            <div class="title">
+                <a class="delete-icon" href="{{url_for('delete', todo_id=data._id, dest='all')}}">
+                    <span class="material-icons">
+                        clear
+                    </span>
+                </a>
+
+                <p>{{data.title}} --- {{data.time}} {{data.date}}</p>
+                <a class="edit-icon" href="{{url_for('edit', todo_id=data._id)}}">
+                    <span class="material-icons">
+                        edit
+                    </span>
+                </a>
+
+            </div>
+
+        </div>
+    {% endfor %}
+</section>
+
 {% endblock %}
