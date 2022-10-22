@@ -284,12 +284,17 @@ def edit(todo_id):
     """
     todo = db.todos.find_one({'_id': ObjectId(todo_id)})
     todo_date = todo['date']
+    todo_time = todo['time']
     
     # parse the date retrieved from the todo object to yyyy-mm-dd format to be displayed in input[date]
     date = datetime.datetime.strptime(todo_date, '%m/%d/%Y')
     reformated_date = date.strftime("%Y-%m-%d")
     
-    return render_template("edit.html", page="Edit", doc=todo, date=reformated_date)
+    # parse the time retrieved from the todo object to H:m am/pm format to be stored in db
+    time = datetime.datetime.strptime(todo_time, '%I:%M%p').time()
+    reformated_time = time.strftime("%H:%M")
+    
+    return render_template("edit.html", page="Edit", doc=todo, date=reformated_date, time=reformated_time)
 
 # route to accept the form submission
 @app.route('/edit/<todo_id>', methods=['POST'])
@@ -311,17 +316,21 @@ def edit_todo(todo_id):
     todo_date = datetime.datetime.strptime(date, '%Y-%m-%d')
     reformated_date = todo_date.strftime("%m/%d/%Y")
     
-    print('date: ', reformated_date)
-    print('type of date: ', type(reformated_date))
-    print('time: ', time)
-    print('type of time: ', type(time))
+    # parse the time retrieved from the todo object to H:m am/pm format to be stored in db
+    todo_time = datetime.datetime.strptime(time, '%H:%M').time()
+    reformated_time = todo_time.strftime("%I:%M%p")
+    
+    # print('date: ', reformated_date)
+    # print('type of date: ', type(reformated_date))
+    # print('time: ', reformated_time)
+    # print('type of time: ', type(reformated_time))
     
     doc = {
         'title': title,
         'content': content,
         'label': label,
         'date': reformated_date,
-        'time': time,
+        'time': reformated_time,
     }
 
     db.todos.update_one(
