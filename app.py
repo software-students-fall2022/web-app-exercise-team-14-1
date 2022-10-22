@@ -6,6 +6,7 @@ import sys
 import datetime
 from dotenv import dotenv_values
 import certifi
+import re
 
 # modules useful for user authentication
 import flask_login
@@ -247,8 +248,9 @@ def search():
         if search_by == 'Label':
             criteria['labels'] = query
         elif search_by == 'Title':
-            criteria['title'] = query
-            # criteria['title'] = {'$regex' : f'/.*{query}.*/', '$options' : 'i'}
+            #criteria['title'] = query
+            #criteria['title'] = {'$regex' : f'/.*{query}.*/', '$options' : 'i'}
+            re.match(query, criteria['title'], re.IGNORECASE)
         else:
             criteria['date'] = query
 
