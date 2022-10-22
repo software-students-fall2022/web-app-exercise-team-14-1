@@ -283,7 +283,13 @@ def edit(todo_id):
     Route for the edit page
     """
     todo = db.todos.find_one({'_id': ObjectId(todo_id)})
-    return render_template("edit.html", page="Edit", doc=todo)
+    todo_date = todo['date']
+    
+    # parse the date retrieved from the todo object to yyyy-mm-dd format to be displayed in input[date]
+    date = datetime.datetime.strptime(todo_date, '%m/%d/%Y')
+    reformated_date = date.strftime("%Y-%m-%d")
+    
+    return render_template("edit.html", page="Edit", doc=todo, date=reformated_date)
 
 # route to accept the form submission
 @app.route('/edit/<todo_id>', methods=['POST'])
@@ -301,11 +307,20 @@ def edit_todo(todo_id):
     date = request.form['date']
     time = request.form['time']
     
+    # parse the date retrieved from the todo object to mm/dd/YYYY format to be stored in db
+    todo_date = datetime.datetime.strptime(date, '%Y-%m-%d')
+    reformated_date = todo_date.strftime("%m/%d/%Y")
+    
+    print('date: ', reformated_date)
+    print('type of date: ', type(reformated_date))
+    print('time: ', time)
+    print('type of time: ', type(time))
+    
     doc = {
         'title': title,
         'content': content,
         'label': label,
-        'date': date,
+        'date': reformated_date,
         'time': time,
     }
 
