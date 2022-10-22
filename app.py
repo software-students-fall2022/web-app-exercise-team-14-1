@@ -252,8 +252,8 @@ def add():
 
         # insert task into db
         db.todos.insert_one(doc)
-
-    #return redirect(url_for('homepage'))
+        return redirect(url_for('homepage'))
+    
     return render_template("add.html", page="Add")
 
 @app.route('/search', methods=['GET','POST'])
