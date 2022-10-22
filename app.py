@@ -194,10 +194,15 @@ def homepage():
     """
     Route for the homepage page
     """
-
+    
     # find the todos array using the logged in user's ObjectId
     todos = flask_login.current_user.data['todos']
-
+    
+    # print("user id: ", flask_login.current_user.id)
+    # print("todos: ", flask_login.current_user.data['todos'])
+    # for item in flask_login.current_user.data['todos']:
+    #     print (type(item))
+    
     # find the today todos
     today = datetime.date.today()
     date = today.strftime('%m/%d/%Y')
@@ -323,7 +328,23 @@ def delete(todo_id):
     """
     Route for GET requests to the delete page.
     """
-    # db.todos.delete_one({"_id": ObjectId(todo_id)})
+    # delete todo item from todos collection
+    db.todos.delete_one({"_id": ObjectId(todo_id)})
+    
+    # get index of todo item to delete
+    id_index = list(flask_login.current_user.data['todos']).index(ObjectId(todo_id))
+    
+    # set element to none using unset operator
+    db.users.update_one(
+        {'_id': ObjectId(flask_login.current_user.id)},
+        {'$unset': {f'todos.{id_index}': 1}}
+    )
+    
+    # remove none elements in todos array of users collection
+    db.users.update_one(
+        {'_id': ObjectId(flask_login.current_user.id)},
+        {'$pull': {'todos': None}}
+    )
     return redirect(url_for('homepage')) 
 
 
