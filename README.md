@@ -3,6 +3,12 @@
 
 A little exercise to build a web application following an agile development process. See the [instructions](instructions.md) for more detail.
 
+## Members
+[Danilo Montes](https://github.com/danilo-montes) \
+[](https://github.com/) \
+[](https://github.com/) \
+[](https://github.com/)
+
 ## Product vision statement
 
 To allow people to better manage their daily tasks.
