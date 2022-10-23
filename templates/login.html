@@ -6,6 +6,9 @@
         <link rel="stylesheet" href="../static/css/styles.css">
     </head>
     <body>
+        <div class="banner">
+            <p>Log in or Create Account</p>
+        </div>
         <section class="authentication-container">
             <div class="authentication-content">
                 <div class="authentication-label">
@@ -28,14 +31,19 @@
                                 <input class="submit-button" type="submit" value="Log In">
                             </center>
                         </form>
-                        <form class="authentication-container" action="/register" method="GET">
-                            <center>
-                                <input class="submit-button" type="submit" value="Create an Account">
-                            </center>
-                        </form>
                     </center>
                 </div>
             </div>
+        </div>
+        <div>
+            <br>
+            <br>
+            <br>
+            <form class="authentication-container" action="/register" method="GET">
+                <center>
+                    <input class="submit-button" type="submit" value="Create an Account">
+                </center>
+            </form>
         </div>
     </body>
 </html>
