@@ -336,6 +336,7 @@ body {
     font-size: 50px;
     color: red;
     font-weight: bold;
+    text-align: center;
 }
 
 .search-result-content {
