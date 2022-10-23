@@ -64,9 +64,6 @@ except Exception as e:
 #     },
 # ]
 
-#for storing the user information after logging in
-username = {}
-
 # a class to represent a user
 class User(flask_login.UserMixin):
     # inheriting from the UserMixin class gives this blank class default implementations of the necessary methods that flask-login requires all User objects to have
@@ -173,14 +170,6 @@ def register():
         else:
             hashed_password = generate_password_hash(p)
             db.users.insert_one({"username": u, "password": hashed_password, "todos": []})
-            # user_id = db.users.insert_one({"username": u, "password": hashed_password, "todos": []}).inserted_id
-            # if user_id:
-            #     user = User({
-            #         "_id": user_id,
-            #         "username": u,
-            #         "password": hashed_password,
-            #         "todos": []
-            #     })
             return redirect(url_for('login'))
     else:
         if flask_login.current_user.is_authenticated:
@@ -198,11 +187,6 @@ def homepage():
 
     # find the todos array using the logged in user's ObjectId
     todos = flask_login.current_user.data['todos']
-
-    # print("user id: ", flask_login.current_user.id)
-    # print("todos: ", flask_login.current_user.data['todos'])
-    # for item in flask_login.current_user.data['todos']:
-    #     print (type(item))
 
     # find the today todos
     today = datetime.date.today()
@@ -269,42 +253,51 @@ def add():
 @app.route('/search', methods=['GET','POST'])
 @flask_login.login_required
 def search():
-    # get info from POST
+    # POST route
     if request.method == 'POST':
         query = request.form['query']
         search_by = request.form['search-by']
+        input_error = False
 
-        # print(type(query), file=sys.stderr)
-        # print(search_by, file=sys.stderr)
-
+        # search criteria dict for searching todos
         criteria = {
             '_id': {'$in': flask_login.current_user.data['todos']}
         }
+
         # search info in database based on search by (label, title, date)
         if search_by == 'Label':
-            criteria['labels'] = query
+            criteria['label'] = {'$regex' : f'{query}', '$options' : 'i'}
         elif search_by == 'Title':
-            #criteria['title'] = query
-            #criteria['title'] = {'$regex' : f'/.*{query}.*/', '$options' : 'i'}
-            re.match(query, criteria['title'], re.IGNORECASE)
+            criteria['title'] = {'$regex' : f'{query}', '$options' : 'i'}
         else:
-            criteria['date'] = query
+            # date input must match YYYY-MM-DD
+            if not re.search('^\d\d\d\d-\d\d-\d\d$', query):
+                input_error = True
+                error_msg = 'Please enter your date in the format (YYYY-MM-DD)'
+            else:
+                try:
+                    datetime.datetime.strptime(query, '%Y-%m-%d')
+                    criteria['date'] = query
+                except:
+                    input_error = True
+                    error_msg = 'Please enter a correct date'
+
+        # return to search page if query is incorrect
+        if input_error:
+            return render_template('search.html', page="Search", prefill = query, error=error_msg)
 
         results = list(db.todos.find(criteria))
         found = len(results) != 0
 
-        # print(f'result:{len(results)}')
-        # print(f'found :{found}')
-        # print(criteria)
-
         return render_template('search_result.html', results = results, found = found)
 
+    # GET route
     return render_template("search.html", page="Search")
 
-@app.route('/search-result/<type>/<query>', )
-def search_results():
+# @app.route('/search-result/<type>/<query>', )
+# def search_results():
 
-    return render_template('search_result.html')
+#     return render_template('search_result.html')
 
 
 @app.route('/edit/<todo_id>')
