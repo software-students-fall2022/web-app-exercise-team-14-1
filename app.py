@@ -245,7 +245,9 @@ def add():
         }
 
         # insert task into db
-        db.todos.insert_one(doc)
+        returned_doc = db.todos.insert_one(doc)
+        db.users.find_one_and_update({'_id': flask_login.current_user.id}, { '$push' : {'todos' : returned_doc.inserted_id}})
+
         return redirect(url_for('homepage'))
     
     return render_template("add.html", page="Add")
