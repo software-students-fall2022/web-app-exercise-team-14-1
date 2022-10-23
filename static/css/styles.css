@@ -46,22 +46,24 @@
 
 /***************** footer styles *****************/
 .footer-nav {
-    /* border-width:1px 0;
+    border-width:1px 0;
     text-align:center;
     overflow: hidden;
-    background-color: #333;
+    background-color: #648bc6;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; 
     margin: 0;
     padding: 0;
     bottom: 0;
     position: fixed;
     width:100%;
-    padding: 10px; */
+    padding: 10px;
+    /* 
     flex-shrink: 0;
     background-color: #648bc6;
     padding: 20px;
     font-size: 20px;
-    margin-top: 10px;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    margin-top: 10px; 
+    */
 }
 
 .footer-nav ul {
@@ -112,6 +114,7 @@
 
 html, body {
     height: 100%;
+    overflow: scroll;
 }
 
 body {
@@ -129,6 +132,7 @@ body {
     width: 80%;
     margin: 0 auto;
     padding: 40px 20px;
+    margin-bottom: 150px;
 }
 
 .home-container h1 {

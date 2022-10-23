@@ -3,23 +3,23 @@
 <form action="{{url_for('add')}}" method="POST" class="add-form">
     <div >
         <label for="title">Title</label>
-        <input name="title" id="title" type="text" value="" required>
+        <input name="title" id="title" type="text" required>
     </div>
     <div>
         <label for="content">Content</label>
-        <input name="content" id="content" type="text" value="">
+        <input name="content" id="content" type="text">
     </div>
     <div>
         <label for="label">Label</label>
-        <input name="label" id="label" type="text" value="">
+        <input name="label" id="label" type="text">
     </div>
     <div>
-        <label for="date">Date (mm/dd/yyyy)</label>
-        <input name="date" id="date" type="text" value="" required>
+        <label for="date">Date</label>
+        <input name="date" id="date" type="date" required>
     </div>
     <div>
         <label for="time">Time</label>
-        <input name="time" id="time" type="text" value="" required>
+        <input name="time" id="time" type="time" required>
     </div>
     <div class="button-container">
         <button type="submit">Add Task</button>
