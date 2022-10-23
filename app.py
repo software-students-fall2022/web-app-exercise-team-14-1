@@ -237,12 +237,33 @@ def all():
 
     return render_template("all.html", todos = allTodos, page="View All")
 
-@app.route('/add')
+@app.route('/add', methods=['GET','POST'])
 @flask_login.login_required
 def add():
     """
     Route for the add todo page
+    Accepts form submission data for new todo and saves to database
     """
+
+    if request.method == "POST":
+        title = request.form['title']
+        content = request.form['content']
+        label = request.form['label']
+        date = request.form['date']
+        time = request.form['time']
+        
+        doc = {
+            'title': title,
+            'content': content,
+            'label': label,
+            'date': date,
+            'time': time,
+        }
+
+        # insert task into db
+        db.todos.insert_one(doc)
+        return redirect(url_for('homepage'))
+    
     return render_template("add.html", page="Add")
 
 @app.route('/search', methods=['GET','POST'])
