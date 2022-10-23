@@ -5,7 +5,7 @@ A little exercise to build a web application following an agile development proc
 
 ## Members
 [Danilo Montes](https://github.com/danilo-montes) \
-[](https://github.com/) \
+[Adam Sidibe](https://github.com/sidibee) \
 [](https://github.com/) \
 [](https://github.com/)
 
