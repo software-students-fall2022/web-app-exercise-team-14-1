@@ -1,26 +1,33 @@
 {% extends 'base.html' %} {% block container %}
+<div class="search-result-content">
+    {% if found %}
+        {% for result in results %}
+            <div class="content">
+                <div class="label">
+                    <h2>{{result.label}}</h2>
+                </div>
+                <div class="title">
+                    <a class="delete-icon" href="{{url_for('delete', todo_id=result._id, dest='all')}}">
+                        <span class="material-icons">
+                            clear
+                        </span>
+                    </a>
 
-{% if found %}
-    {% for result in results %}
-        <div class="content">
-            <div class="label">
-                <h2>{{result.label}}</h2>
+                    <div class="title-details">
+                        <p class="title-text">{{result.title}}</p>
+                        <p class="title-time">{{result.date|date_format}} || {{result.time|time_format}}</p>
+                    </div>
+                    <a class="edit-icon" href="{{url_for('edit', todo_id=result._id)}}">
+                        <span class="material-icons">
+                            edit
+                        </span>
+                    </a>
+                </div>
             </div>
-            <div class="title">
-                <span class="material-icons">
-                    clear
-                </span>
-                <p>{{result.title}}</p>
-                <a class="edit-icon" href="{{url_for('edit', todo_id=result._id)}}">
-                    <span class="material-icons">
-                        edit
-                    </span>
-                </a>
-            </div>
-        </div>
-    {% endfor %}
-{% else %}
-    <p>No results for your query.</p>
-{% endif %}
+        {% endfor %}
+    {% else %}
+        <p class="search-error">No results for your query.</p>
+    {% endif %}
+</div>
 
 {% endblock %}
