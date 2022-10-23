@@ -6,7 +6,7 @@ A little exercise to build a web application following an agile development proc
 ## Members
 [Danilo Montes](https://github.com/danilo-montes) \
 [Adam Sidibe](https://github.com/sidibee) \
-[](https://github.com/) \
+[Brian Lin](https://github.com/blin007) \
 [](https://github.com/)
 
 ## Product vision statement
