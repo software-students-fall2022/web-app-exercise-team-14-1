@@ -13,7 +13,10 @@
                     </span>
                 </a>
 
-                <p>{{data.title}} --- {{data.time}} {{data.date}}</p>
+                <div class="title-details">
+                    <p class="title-text">{{data.title}}</p>
+                    <p class="title-time">{{data.date|date_format}} || {{data.time|time_format}}</p>
+                </div>
                 <a class="edit-icon" href="{{url_for('edit', todo_id=data._id)}}">
                     <span class="material-icons">
                         edit
