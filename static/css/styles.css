@@ -281,6 +281,11 @@ body {
 
 /***************** SEARCH PAGE STYLES *****************/
 
+.search-container {
+    display: flex;
+    justify-content: center;
+}
+
 .search-bar {
     display: flex;
     justify-content: center;
@@ -315,6 +320,13 @@ body {
     color: #648bc6;
     font-size: 50px;
 }
+
+.search-error {
+    font-size: 50px;
+    color: red;
+    font-weight: bold;
+}
+
 
 /***************** Login and register styles *****************/
 
