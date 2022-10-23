@@ -142,7 +142,7 @@ body {
     font-size: 60px;
 }
 
-/* .content .label {
+.content .label {
     padding: 5px 40px;
     background-color: rgb(175, 222, 249);
     border-radius: 20px;
@@ -154,7 +154,7 @@ body {
     margin-left: 1em; 
     font-weight: 500;
     font-size: 45px;
-} */
+}
 
 .content .title {
     display: flex;

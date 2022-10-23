@@ -177,11 +177,18 @@ def homepage():
     return render_template("homepage.html", todos = todayTodos, homepage=True)
 
 # create a filter that jinja will use to format the time in the html to look nicer
-# used in homepage.html
+# used in homepage.html and all.html
 @app.template_filter('time_format')
 def time_format(value, format="%I:%M %p"):
     todo_time = datetime.datetime.strptime(value, '%H:%M').time()
     return todo_time.strftime(format)
+
+# create a filter that jinja will use to format the date in the html to look nicer
+# used in all.html
+@app.template_filter('date_format')
+def date_format(value, format="%m/%d/%Y"):
+    todo_date = datetime.datetime.strptime(value, '%Y-%m-%d')
+    return todo_date.strftime(format)
 
 
 @app.route('/all')
