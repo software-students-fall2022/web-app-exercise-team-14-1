@@ -293,6 +293,7 @@ body {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    margin-bottom: 150px;
 }
 
 .search-bar {
@@ -335,6 +336,10 @@ body {
     font-size: 50px;
     color: red;
     font-weight: bold;
+}
+
+.search-result-content {
+    margin-bottom: 250px;
 }
 
 .search-result-content > p {
