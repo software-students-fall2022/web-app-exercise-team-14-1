@@ -36,33 +36,6 @@ except Exception as e:
     print(' *', "Failed to connect to MongoDB at", config['MONGO_URI'])
     print('Database connection error:', e) # debug
 
-# array of todo items
-# dummyData = [
-#     {
-#         'title': "Software Engineering Meeting",
-#         'details': "Meeting",
-#         'label': "Schoolwork",
-#         'Date': "10/16/2022",
-#         'Time': "4:00 pm",
-#         'Author': "User"
-#     },
-#     {
-#         'title': "Biology paper",
-#         'details': "Paper on prevalence of disease",
-#         'label': "Schoolwork",
-#         'Date': "10/16/2022",
-#         'Time': "12:00 pm",
-#         'Author': "User"
-#     },
-#     {
-#         'title': "Tennis game",
-#         'details': "At astoria park",
-#         'label': "Hobby",
-#         'Date': "10/16/2022",
-#         'Time': "10:00 am",
-#         'Author': "User"
-#     },
-# ]
 
 # a class to represent a user
 class User(flask_login.UserMixin):
@@ -190,17 +163,25 @@ def homepage():
 
     # find the today todos
     today = datetime.date.today()
-    date = today.strftime('%m/%d/%Y')
+    date = today.strftime('%Y-%m-%d')
     # get today's todos in a list
     todayTodos = list(db.todos.find({
         '_id': {
             '$in': todos
         },
         'date': date,
-    }))
+    }).sort([('time', 1)]))
+    
 
     # pass in today todos and the user's username to the homepage template
     return render_template("homepage.html", todos = todayTodos, homepage=True)
+
+# create a filter that jinja will use to format the time in the html to look nicer
+# used in homepage.html
+@app.template_filter('time_format')
+def time_format(value, format="%I:%M %p"):
+    todo_time = datetime.datetime.strptime(value, '%H:%M').time()
+    return todo_time.strftime(format)
 
 
 @app.route('/all')
@@ -312,15 +293,7 @@ def edit(todo_id):
     todo_date = todo['date']
     todo_time = todo['time']
     
-    # parse the date retrieved from the todo object to yyyy-mm-dd format to be displayed in input[date]
-    date = datetime.datetime.strptime(todo_date, '%m/%d/%Y')
-    reformated_date = date.strftime("%Y-%m-%d")
-    
-    # parse the time retrieved from the todo object to H:m am/pm format to be stored in db
-    time = datetime.datetime.strptime(todo_time, '%I:%M%p').time()
-    reformated_time = time.strftime("%H:%M")
-    
-    return render_template("edit.html", page="Edit", doc=todo, date=reformated_date, time=reformated_time)
+    return render_template("edit.html", page="Edit", doc=todo, date=todo_date, time=todo_time)
 
 # route to accept the form submission
 @app.route('/edit/<todo_id>', methods=['POST'])
@@ -337,26 +310,13 @@ def edit_todo(todo_id):
     label = request.form['label']
     date = request.form['date']
     time = request.form['time']
-
-    # parse the date retrieved from the todo object to mm/dd/YYYY format to be stored in db
-    todo_date = datetime.datetime.strptime(date, '%Y-%m-%d')
-    reformated_date = todo_date.strftime("%m/%d/%Y")
-    
-    # parse the time retrieved from the todo object to H:m am/pm format to be stored in db
-    todo_time = datetime.datetime.strptime(time, '%H:%M').time()
-    reformated_time = todo_time.strftime("%I:%M%p")
-    
-    # print('date: ', reformated_date)
-    # print('type of date: ', type(reformated_date))
-    # print('time: ', reformated_time)
-    # print('type of time: ', type(reformated_time))
     
     doc = {
         'title': title,
         'content': content,
         'label': label,
-        'date': reformated_date,
-        'time': reformated_time,
+        'date': date,
+        'time': time,
     }
 
     db.todos.update_one(
