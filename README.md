@@ -3,14 +3,28 @@
 
 A little exercise to build a web application following an agile development process. See the [instructions](instructions.md) for more detail.
 
+## Members
+[Danilo Montes](https://github.com/danilo-montes) \
+[Adam Sidibe](https://github.com/sidibee) \
+[Brian Lin](https://github.com/blin007) \
+[Brandon Chen](https://github.com/b-chen00)
+
 ## Product vision statement
 
-See instructions. Delete this line and place the Product Vision Statement here.
+To allow people to better manage their daily tasks.
 
 ## User stories
 
-See instructions. Delete this line and place a link to the user stories here.
+[Link to User Stories](https://github.com/software-students-fall2022/web-app-exercise-team-14-1/issues)
 
 ## Task boards
 
-See instructions. Delete this line and place a link to the task boards here.
+[Link to All Task Boards](https://github.com/software-students-fall2022/web-app-exercise-team-14-1/projects?query=is%3Aopen)
+
+## Wireframes
+
+[Link to Wireframes](https://www.figma.com/file/d7XMout6NMehm1fALx5g74/Wireframe?node-id=0%3A1)
+
+## Necessary Steps to Run
+
+Have `.env` file in root directory (file in Discord channel `team-14`)

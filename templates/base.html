@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>TODO APP</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="../static/css/styles.css">
+
+    </head>
+<body>
+    <section class="container">
+        <header class="header">
+            <div class="header-content">
+                {% if homepage %}
+                    <h1>Hello {{user.data.username}}</h1>
+                    <a class="logout" href="{{url_for('logout')}}">
+                        <span class="material-icons logout">
+                            logout
+                        </span>
+                    </a>
+                {% else %}
+                    <a class="previous" href="{{url_for('homepage')}}">
+                        <span class="material-icons">
+                            arrow_back_ios
+                        </span>
+                    </a>
+                    <h1>{{ page }}</h1>
+                {% endif %}
+            </div>
+        </header>
+
+        {% block container %}
+        {% endblock %}
+
+    </section>
+    <footer class="footer-nav">
+        <ul>
+            <li>
+                <a class="icon-nav" href="{{url_for('homepage')}}">
+                    <span class="material-icons home">
+                        home
+                    </span>
+                    <p>Home</p>
+                </a>
+            </li>
+            <li>
+                <a class="icon-nav" href="{{url_for('search')}}">
+                    <span class="material-icons search">
+                        search
+                    </span>
+                    <p>Search</p>
+                </a>
+            </li>
+            <li>
+                <a class="icon-nav" href="{{url_for('add')}}">
+                    <span class="material-icons add">
+                        add
+                    </span>
+                    <p>Add</p>
+                </a>
+            </li>
+            <li>
+                <a class="icon-nav" href="{{url_for('all')}}">
+                    <span class="material-icons view">
+                        menu_book
+                    </span>
+                    <p>View All</p>
+                </a>
+            </li>
+    
+        </ul>
+    </footer>
+</body>
+</html>

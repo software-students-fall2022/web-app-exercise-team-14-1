@@ -1,0 +1,20 @@
+{% extends 'base.html' %} {% block container %}
+<div class="search-container">
+    <form action="{{url_for('search')}}" method="POST" class="search-bar">
+        {% if error %}
+        <input type="text" name="query" placeholder="Search ToDos" value="{{prefill}}" autofocus></input>
+        {% else %}
+        <input type="text" name="query" placeholder="Search ToDos" autofocus></input>
+        {% endif %}
+        <p>Search by...</p>
+        <div id="search-by-buttons">
+            <input type="submit" name="search-by" value="Label"></input>
+            <input type="submit" name="search-by" value="Title"></input>
+            <input type="submit" name="search-by" value="Date"></input>
+        </div>
+    </form>
+    {% if error %}
+    <p class="search-error">{{error}}</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Register</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="../static/css/styles.css">
+    </head>
+    <body>
+        <section class="authentication-container">
+            <div class="authentication-content">
+                <div class="authentication-label">
+                    <center>
+                        <form class="authentication-container" action="/register" method="POST">
+                            {% with messages = get_flashed_messages() %}
+                                {% if messages %}
+                                    <ul class=flashes>
+                                    {% for message in messages %}
+                                        <center><div class="message">{{ message }}</div></center>
+                                    {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            {% endwith %}
+                            <label for="username">Username</label><br>
+                            <input class="form-control" type="text" name="username"><br>
+                            <label for="password">Password</label><br>
+                            <input class="form-control" type="password" name="password"><br>
+                            <label for="match">Retype Your Password</label><br>
+                            <input class="form-control" type="password" name="match"><br>
+                            <center>
+                                <input class="submit-button" type="submit" value="Register">
+                            </center>
+                        </form>
+                        <form class="authentication-container" action="/returnToLogin" method="GET">
+                            <center>
+                                <input class="submit-button" type="submit" value="Cancel">
+                            </center>
+                        </form>
+                    </center>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

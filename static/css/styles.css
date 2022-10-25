@@ -1,0 +1,413 @@
+/***************** BASE STYLES *****************/
+
+.container {
+    flex: 1 0 auto;
+}
+
+/***************** icons *****************/
+.material-icons {
+    font-size: 48px;
+}
+
+
+
+.icon-nav {
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    /* justify-content: center; */
+}
+
+.icon-nav p {
+    white-space: nowrap;
+    font-size: 24px;
+}
+
+/***************** login banner styles *****************/
+.banner {
+    padding: 125px;
+    text-align: center;
+    background: rgb(175, 222, 249);
+    color: black;
+    font-size: 60px;
+}
+/***************** header styles *****************/
+.header {
+    background-color:#7cbced;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+    padding: 25px 40px;
+    font-size: 45px;
+    color: #fff;
+}
+
+.header .header-content {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .header-content a {
+    color: white;
+    text-decoration: none;
+}
+
+/***************** footer styles *****************/
+.footer-nav {
+    border-width:1px 0;
+    text-align:center;
+    overflow: hidden;
+    background-color: #648bc6;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; 
+    margin: 0;
+    padding: 0;
+    bottom: 0;
+    position: fixed;
+    width:100%;
+    padding: 10px;
+    /* 
+    flex-shrink: 0;
+    background-color: #648bc6;
+    padding: 20px;
+    font-size: 20px;
+    margin-top: 10px; 
+    */
+}
+
+.footer-nav ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    list-style: none;
+}
+
+.footer-nav ul li {
+    /* display:inline; */
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    margin: 0;
+    padding: 0;
+}
+
+.footer-nav ul li a {
+    /* display:inline-block; */
+    padding: 5px;
+    color: white;
+    text-decoration: none;
+    font-size: 40px;
+    width: 10%;
+}
+
+/* .footer-nav .logout {
+    display:inline-block;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+    width: 100%;
+} */
+
+/* .footer-right {
+    float: right;
+    margin: 0;
+    padding: 0;
+    width: 10%;
+} */
+
+.footer-nav ul li a:hover {
+    background-color: #000;
+    /* color: #000; */
+}
+
+html, body {
+    height: 100%;
+    overflow: scroll;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f3f3;
+}
+
+/***************** HOMEPAGE STYLES *****************/
+.home-container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 0 auto;
+    padding: 40px 20px;
+    margin-bottom: 150px;
+}
+
+.home-container h1 {
+    text-align: center;
+    color: rgb(38, 38, 38);
+    font-weight: 700;
+    font-size: 60px;
+}
+
+.content .label {
+    padding: 5px 40px;
+    background-color: rgb(175, 222, 249);
+    border-radius: 20px;
+    margin-bottom: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 15px 30px -10px, rgba(0, 0, 0, 0.3) 0px 8px 15px -5px;
+}
+
+.content h2 {
+    margin-left: 1em; 
+    font-weight: 500;
+    font-size: 45px;
+}
+
+.content .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+    margin-left: 2em;
+    margin-bottom: 30px;
+    background-color: rgb(152, 182, 220);
+    border-radius: 20px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+}
+
+.content .title .title-details {
+    text-align: center;
+    /* display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%; */
+}
+
+.title-text {
+    /* margin-left: 3em; */
+    font-size: 40px;
+}
+
+.title-time{
+    font-size: 30px;
+}
+
+.content .title a {
+    color: #000;
+    text-decoration: none;
+}
+/***************** ADD PAGE STYLES *****************/
+.add-form {
+    width: 90%;
+    padding: 35px;
+}
+
+.add-form div{
+    margin-top: 40px;
+}
+
+.add-form label{
+    display: block;
+    font-size: 48px;
+    margin-left: 1rem;
+}
+
+.add-form input, textarea {
+    width:100%;
+    height: 100px;
+    font-size: 36px;
+    text-decoration: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+}
+
+.add-form .button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+.add-form button {
+    margin-top: 30px;
+    width: 80%;
+    height: 90px;
+    font-size: 30px;
+    background-color:#648bc6;
+    color: #fff;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+/***************** EDIT PAGE STYLES *****************/
+.edit-form {
+    width: 90%;
+    padding: 35px;
+}
+
+.edit-form div{
+    margin-top: 40px;
+}
+
+.edit-form label{
+    display: block;
+    font-size: 48px;
+    margin-left: 1rem;
+}
+
+.edit-form input, textarea {
+    width:100%;
+    height: 100px;
+    font-size: 36px;
+    text-decoration: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+}
+
+.edit-form .button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+.edit-form button {
+    margin-top: 30px;
+    width: 80%;
+    height: 90px;
+    font-size: 30px;
+    background-color:#648bc6;
+    color: #fff;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+
+
+/***************** SEARCH PAGE STYLES *****************/
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 150px;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.search-bar input[type="text"] {
+    width: 100%;
+    margin: 10px;
+}
+
+.search-bar p {
+    font-size: 50px;
+}
+
+#search-by-buttons {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    margin-top: 10px;
+}
+
+.search-bar input[type="submit"]:hover {
+    background-color: #648bc6;
+    color: black;
+}
+
+.search-bar input {
+    padding: 10px;
+    border: 3px solid #648bc6;
+    border-radius: 3px;
+    color: #648bc6;
+    font-size: 50px;
+}
+
+.search-error {
+    font-size: 50px;
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}
+
+.search-result-content {
+    margin-bottom: 250px;
+}
+
+.search-result-content > p {
+    text-align: center;
+}
+
+
+/***************** Login and register styles *****************/
+
+.authentication-container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.authentication-container input[type=text], select{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    line-height: 50px;
+    font-size: 50px;
+}
+
+.authentication-container label {
+    padding: 8px;
+    font-size: 50px;
+}
+
+.authentication-container input[type=password], select{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    line-height: 50px;
+    font-size: 50px;
+}
+
+.authentication-container input[type=submit], select{
+    width: fit-content;
+
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 50px;
+}
+
+.message{
+    color: red;
+    font-size: 40px;
+}
+
+.authentication-content .authentication-label {
+    padding: 5px 40px;
+    background-color: rgb(175, 222, 249);
+    border-radius: 20px;
+    margin-bottom: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 15px 30px -10px, rgba(0, 0, 0, 0.3) 0px 8px 15px -5px;
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="../static/css/styles.css">
+    </head>
+    <body>
+        <div class="banner">
+            <p>Log in or Create Account</p>
+        </div>
+        <section class="authentication-container">
+            <div class="authentication-content">
+                <div class="authentication-label">
+                    <center>
+                        <form class="authentication-container" action="/" method="GET">
+                            {% with messages = get_flashed_messages() %}
+                                {% if messages %}
+                                    <ul class=flashes>
+                                    {% for message in messages %}
+                                        <center>{{ message }}</center>
+                                    {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            {% endwith %}
+                            <label for="username">Username</label><br>
+                            <input class="form-control" type="text" name="username" placeholder="Username"><br>
+                            <label for="password">Password</label><br>
+                            <input class="form-control" type="password" name="password" placeholder="Password"><br>
+                            <center>
+                                <input class="submit-button" type="submit" value="Log In">
+                            </center>
+                        </form>
+                    </center>
+                </div>
+            </div>
+        </div>
+        <div>
+            <br>
+            <br>
+            <br>
+            <form class="authentication-container" action="/register" method="GET">
+                <center>
+                    <input class="submit-button" type="submit" value="Create an Account">
+                </center>
+            </form>
+        </div>
+    </body>
+</html>
