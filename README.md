@@ -24,3 +24,7 @@ To allow people to better manage their daily tasks.
 ## Wireframes
 
 [Link to Wireframes](https://www.figma.com/file/d7XMout6NMehm1fALx5g74/Wireframe?node-id=0%3A1)
+
+## Necessary Steps to Run
+
+Have `.env` file in root directory (file in Discord channel `team-14`)
